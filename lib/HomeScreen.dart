@@ -46,82 +46,102 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 48.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            isSuspicious
-                ? Image.asset(
-              'assets/images/TapOnScanRed.png',
-              width: screenWidth * 0.6,
-            )
-                : Image.asset(
-              'assets/images/TapOnScanGreen2.png',
-              width: screenWidth * 0.6,
-            ),
-            const SizedBox(
-              height: 65,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 40.0, right: 40),
-              child: const Text(
-                "Tap on Scan to check for hidden spying apps on your phone.",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.normal,
-                ),
-                textAlign: TextAlign.center,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          isSuspicious
+              ? Image.asset(
+            'assets/images/TapOnScanRed.png',
+            width: screenWidth * 0.6,
+          )
+              : Image.asset(
+            'assets/images/TOSGreen.png',
+            // width: screenWidth * 1.5,
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 40.0, right: 40),
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: const TextSpan(
+                children: [
+                  TextSpan(
+                    text: "Tap on Scan to check for hidden ",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "spying",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 17,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  TextSpan(
+                    text: " apps on your phone.",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ],
               ),
             ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Text(
-                        "Powered by Gfuturetech Pvt Ltd",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w200,
-                        ),
+          ),
+
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Text(
+                      "Powered by Gfuturetech Pvt Ltd",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w200,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 30),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ScanningScreen()));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: isSuspicious
-                              ? Color(0xFFE9696A)
-                              : Color(0xFF00C756),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          minimumSize: const Size(300, 50),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 30),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ScanningScreen()));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: isSuspicious
+                            ? Color(0xFFE9696A)
+                            : Color(0xFF00C756),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        child: const Text(
-                          'Scan',
-                          style: TextStyle(color: Colors.black, fontSize: 16),
-                          textAlign: TextAlign.center,
-                        ),
+                        minimumSize: const Size(300, 50),
+                      ),
+                      child: const Text(
+                        'Scan',
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
