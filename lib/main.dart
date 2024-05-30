@@ -1,7 +1,9 @@
+import 'package:anti_spy/AppPermissions.dart';
 import 'package:anti_spy/Demo/AppName.dart';
 import 'package:anti_spy/HomeScreen.dart';
 import 'package:anti_spy/ScannedScreen.dart';
 import 'package:anti_spy/ScanningScreen.dart';
+import 'package:anti_spy/SubscriptionListScreen.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 
@@ -21,12 +23,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Quickshield',
       home: const AppCheckWrapper(),
+      // home: MainPage(),
       routes: {
         '/home': (context) => const HomeScreen(),
-        '/scanning': (context) => const ScanningScreen(),
-        '/scanned': (context) => ScannedScreen(suspiciousApps: [],),
+        '/scanning': (context) => const ScanningScreen(allPermissions: [],),
+        '/scanned': (context) => ScannedScreen(suspiciousApps: [], allPermissions: [],),
+        '/subscription': (context) => SubscriptionList(),
       },
       // home: ScannedScreen(),
       // home: ScanningScreen(),
@@ -55,11 +59,12 @@ class AppCheckWrapper extends StatelessWidget {
         } else {
           List<Application> apps = snapshot.data!;
           List<String> suspiciousAppNames = [
-            'anti_spy',
+            'Strava'
             'Cocospy',
             'FamiSafe',
             'AirDroid',
             'Sync Service',
+            'Gas Leakage',
             'uMobix Userspace',
             'MMGuardian',
             'FlexiSpy',

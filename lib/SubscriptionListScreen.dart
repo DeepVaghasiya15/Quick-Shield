@@ -1,0 +1,251 @@
+import 'package:anti_spy/FixedScreen.dart';
+import 'package:flutter/material.dart';
+
+class SubscriptionList extends StatefulWidget {
+  const SubscriptionList({super.key});
+
+  @override
+  _SubscriptionListState createState() => _SubscriptionListState();
+}
+
+class _SubscriptionListState extends State<SubscriptionList> {
+  String selectedPlan = "Unlimited plan"; // Default selected plan
+
+  void selectPlan(String plan) {
+    setState(() {
+      selectedPlan = plan;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF28292E),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF28292E),
+        centerTitle: true,
+        leading: Padding(
+        padding: const EdgeInsets.only(left: 0.0),
+        child: IconButton(
+          icon: Image.asset('assets/images/BackButton.png'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: IconButton(
+              icon: Image.asset('assets/images/SettingIcon.png'),
+              onPressed: () {
+                print("Image clicked");
+              },
+            ),
+          ),
+        ],
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Center(
+            child: Image.asset(
+              'assets/images/Premium.png',
+              height: 95,
+            ),
+          ),
+          const Text(
+            "Pricing Plan",
+            style: TextStyle(
+                color: Colors.white, fontSize: 40, fontWeight: FontWeight.w600),
+          ),
+          const SizedBox(height: 20,),
+          const Padding(
+            padding: EdgeInsets.only(left: 8.0, right: 8),
+            child: Text(
+              "Choose a subscription plan to unlock all the functionality of the application.",
+              style: TextStyle(
+                  color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(height: 50,),
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              PricingPlanCard(
+                title: "1 year plan",
+                price: "\₹166/mo",
+                description: "\₹1999 billed for 1 year plan",
+                color: selectedPlan == "Unlimited plan" ? Color(0xFF00C756) : Colors.grey[850]!,
+                onTap: () => selectPlan("Unlimited plan"),
+              ),
+              Positioned(
+                top: -12, // Adjust as needed
+                right: 30, // Adjust as needed
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(color: Color(0xFF28292E), width: 3),
+                  ),
+                  child: const Text(
+                    "Save 90%",
+                    style: TextStyle(
+                      color: Color(0xFF00C756),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          PricingPlanCard(
+            title: "1 Time fix",
+            price: "\₹500/app",
+            description: "",
+            color: selectedPlan == "1 year plan" ? Color(0xFF00C756) : Colors.grey[850]!,
+            onTap: () => selectPlan("1 year plan"),
+          ),
+          const SizedBox(height: 20),
+          // PricingPlanCard(
+          //   title: "Monthly plan",
+          //   price: "\$19/mo",
+          //   description: "",
+          //   color: selectedPlan == "Monthly plan" ? Color(0xFF00C756) : Colors.grey[850]!,
+          //   onTap: () => selectPlan("Monthly plan"),
+          // ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // const Padding(
+                  //   padding: const EdgeInsets.only(bottom: 8.0),
+                  //   child: Text(
+                  //     "Powered by Gfuturetech Pvt Ltd",
+                  //     style: TextStyle(
+                  //       color: Colors.white,
+                  //       fontWeight: FontWeight.w200,
+                  //     ),
+                  //   ),
+                  // ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 30),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FixedScreen()));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF00C756),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        minimumSize: const Size(360, 65),
+                      ),
+                      child: const Text(
+                        'Continue',
+                        style: TextStyle(color: Colors.white, fontSize: 24),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PricingPlanCard extends StatelessWidget {
+  final String title;
+  final String price;
+  final String description;
+  final Color color;
+  final VoidCallback onTap;
+
+  PricingPlanCard({
+    required this.title,
+    required this.price,
+    required this.description,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double cardWidth = screenWidth * 0.9; // 90% of screen width
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: cardWidth,
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: price.split('/')[0], // Extract the price part before "/"
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: '/' + price.split('/')[1], // Extract the "/mo" part
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            if (description.isNotEmpty) ...[
+              const SizedBox(height: 4),
+              Text(
+                description,
+                style: const TextStyle(
+                  color: Colors.white70,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}

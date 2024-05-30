@@ -1,13 +1,17 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:anti_spy/HomeScreen.dart';
+import 'package:animated_progress_bar/animated_progress_bar.dart';
+import 'package:anti_spy/FixedScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:anti_spy/main.dart';
-
+import 'HomeScreen.dart';
+import 'NoSpyingApp.dart';
 import 'ScannedScreen.dart';
+import 'main.dart';
 
 class ScanningScreen extends StatefulWidget {
-  const ScanningScreen({Key? key}) : super(key: key);
+  final List<String> allPermissions;
+
+  const ScanningScreen({Key? key, required this.allPermissions}) : super(key: key);
 
   @override
   State<ScanningScreen> createState() => _ScanningScreenState();
@@ -40,104 +44,113 @@ class _ScanningScreenState extends State<ScanningScreen> {
   }
 
   void _initializePausePoints() {
-    const minPausePercentage = 0.2; // Minimum percentage to pause
-    const maxPausePercentage = 0.8; // Maximum percentage to pause
-    final pauseCount = _random.nextInt(2) + 4; // Random pause count between 2 and 3
+    const minPausePercentage = 0.2;
+    const maxPausePercentage = 0.8;
+    final pauseCount = _random.nextInt(2) + 4;
 
     _pausePoints = List.generate(pauseCount, (index) {
-      return minPausePercentage + _random.nextDouble() * (maxPausePercentage - minPausePercentage);
+      return minPausePercentage +
+          _random.nextDouble() * (maxPausePercentage - minPausePercentage);
     });
 
     _pausePoints.sort();
   }
 
   void _startAnimation() {
-    const totalDuration = 11000; // Total duration in milliseconds
+    const totalDuration = 8000;
     final steps = 100;
     final stepDuration = totalDuration ~/ steps;
 
     int currentStep = (_progressValue * steps).toInt();
 
-    _progressTimer = Timer.periodic(Duration(milliseconds: stepDuration), (timer) {
-      if (currentStep < steps) {
-        setState(() {
-          _progressValue = currentStep / steps;
-        });
-        currentStep++;
-      } else {
-        _progressTimer.cancel();
-        setState(() {
-          _progressValue = 1.0;
-        });
-        // Set a delay before making the widget disappear and navigate to next screen
-        Future.delayed(Duration(seconds: 2), () {
-          setState(() {
-            _animationCompleted = true;
-          });
-          _navigateToNextScreen();
-        });
-      }
+    _progressTimer =
+        Timer.periodic(Duration(milliseconds: stepDuration), (timer) {
+          if (currentStep < steps) {
+            setState(() {
+              _progressValue = currentStep / steps;
+            });
+            currentStep++;
+          } else {
+            _progressTimer.cancel();
+            setState(() {
+              _progressValue = 1.0;
+            });
+            Future.delayed(const Duration(seconds: 2), () {
+              setState(() {
+                _animationCompleted = true;
+              });
+              _navigateToNextScreen();
+            });
+          }
 
-      if (_pauseCount < _pausePoints.length && currentStep / steps >= _pausePoints[_pauseCount]) {
-        _progressTimer.cancel();
-        _pauseCount++;
-        _animationPaused = true; // Pause the animation
-        Timer(Duration(milliseconds: _random.nextInt(2000)), () {
-          _startAnimation();
-          _animationPaused = false; // Resume the animation
-          _startAppNameRotation(); // Start the app name rotation
+          if (_pauseCount < _pausePoints.length &&
+              currentStep / steps >= _pausePoints[_pauseCount]) {
+            _progressTimer.cancel();
+            _pauseCount++;
+            _animationPaused = true;
+            Timer(Duration(milliseconds: _random.nextInt(2000)), () {
+              _startAnimation();
+              _animationPaused = false;
+              _startAppNameRotation();
+            });
+          }
         });
-      }
-    });
   }
 
   void _startAppNameRotation() {
-    int currentStep = 0; // Initialize currentStep here
-    const totalDuration = 11000; // Total duration in milliseconds
+    int currentStep = 0;
+    const totalDuration = 8000;
     const steps = 100;
     final stepDuration = totalDuration ~/ steps;
     final appNamesCount = appNamesScanning.length;
 
-    _appNameTimer = Timer.periodic(Duration(milliseconds: stepDuration), (timer) {
-      if (!_animationPaused) { // Check if animation is not paused
-        if (currentStep < steps) {
-          // Calculate the progress percentage
-          final progress = currentStep / steps;
+    _appNameTimer =
+        Timer.periodic(Duration(milliseconds: stepDuration), (timer) {
+          if (!_animationPaused) {
+            if (currentStep < steps) {
+              final progress = currentStep / steps;
+              final index = (progress * appNamesCount).floor();
 
-          // Calculate the index of the app name based on progress
-          final index = (progress * appNamesCount).floor();
+              setState(() {
+                _currentAppName = appNamesScanning[index];
+              });
 
-          setState(() {
-            _currentAppName = appNamesScanning[index];
-          });
+              currentStep++;
+            } else {
+              _appNameTimer.cancel();
+            }
+          } else {
+            currentStep = 0;
+          }
+        });
 
-          currentStep++;
-        } else {
-          _appNameTimer.cancel(); // Cancel the timer when all app names have been shown
-        }
-      } else {
-        // Reset currentStep when animation is paused
-        currentStep = 0;
-      }
-    });
-
-    // If the animation is already completed, cancel the timer immediately
     if (_animationCompleted) {
       _appNameTimer.cancel();
     }
   }
 
-
-
-
   void _navigateToNextScreen() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ScannedScreen(suspiciousApps: SuspiciousApp),
-      ),
-    );
+    if (isSuspicious) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ScannedScreen(
+            suspiciousApps: SuspiciousApp,
+            allPermissions: widget.allPermissions,
+          ),
+        ),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NoSpyingApp(),
+        ),
+      );
+    }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +160,6 @@ class _ScanningScreenState extends State<ScanningScreen> {
         backgroundColor: const Color(0xFF28292E),
         title: const Text('Scanning', style: TextStyle(color: Colors.white)),
         centerTitle: true,
-
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -167,6 +179,15 @@ class _ScanningScreenState extends State<ScanningScreen> {
                       width: 280,
                     ),
                   ),
+                  // SizedBox(
+                  //     height: 250,
+                  //     width: 250,
+                  //     child: AnimatedProgressBar(
+                  //       stroke: 10,
+                  //       color: Colors.green,
+                  //       style: PaintingStyle.stroke,
+                  //       percentage: 1,
+                  //     )),
                   if (!_animationCompleted)
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -184,7 +205,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                                     text: '$percentage',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 65, // Larger font size for the number
+                                      fontSize: 65,
                                       fontWeight: FontWeight.w300,
                                     ),
                                   ),
@@ -192,7 +213,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                                     text: '%',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 18, // Smaller font size for the '%' symbol
+                                      fontSize: 18,
                                       fontWeight: FontWeight.normal,
                                     ),
                                   ),
@@ -215,6 +236,43 @@ class _ScanningScreenState extends State<ScanningScreen> {
               fontWeight: FontWeight.normal,
             ),
           ),
+          const SizedBox(
+            height: 80,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 40.0, right: 40),
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: const TextSpan(
+                children: [
+                  TextSpan(
+                    text: "Scanning the ",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "spying",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 25,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  TextSpan(
+                    text: " apps on your phone.",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           SizedBox(height: 40),
           Expanded(
             child: Align(
@@ -225,7 +283,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: Text(
-                      "Powered by Gfuturetech Pvt Ltd",
+                      "Powered by Quickshield",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w200,
@@ -236,10 +294,12 @@ class _ScanningScreenState extends State<ScanningScreen> {
                     padding: const EdgeInsets.only(bottom: 30),
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                        Navigator.pushReplacement(
+                            context, MaterialPageRoute(builder: (context) =>
+                            HomeScreen()));
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: isSuspicious ? Color(0xFFE9696A).withOpacity(0.5) : Color(0xFF00C756).withOpacity(0.5),
+                        backgroundColor: Colors.red.withOpacity(0.5),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -253,11 +313,9 @@ class _ScanningScreenState extends State<ScanningScreen> {
                     ),
                   ),
                 ],
-
               ),
             ),
           ),
-
         ],
       ),
     );

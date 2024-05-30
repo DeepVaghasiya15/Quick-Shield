@@ -1,26 +1,66 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:anti_spy/ScanningScreen.dart';
-import 'package:anti_spy/ScannedScreen.dart';
+import 'package:android_package_manager/android_package_manager.dart';
+import 'ScanningScreen.dart';
 
-import 'main.dart';
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<PackageInfo>? _applicationInfoList;
+  Set<String> _allPermissions = {};
+
+  static const int FLAG_SYSTEM = 1 << 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadApplicationInfoList();
+  }
+
+  Future<void> _loadApplicationInfoList() async {
+    final flags = PackageInfoFlags(
+      {
+        PMFlag.getMetaData,
+        PMFlag.getPermissions,
+        PMFlag.getReceivers,
+        PMFlag.getServices,
+        PMFlag.getProviders,
+      },
+    );
+    final List<PackageInfo>? infoList = await AndroidPackageManager().getInstalledPackages(flags: flags);
+    final List<PackageInfo>? userInstalledApps = infoList?.where((info) {
+      return (info.applicationInfo!.flags & FLAG_SYSTEM) == 0;
+    }).toList();
+
+    final Set<String> allPermissions = {};
+    for (var app in userInstalledApps ?? []) {
+      if (app.requestedPermissions != null) {
+        allPermissions.addAll(app.requestedPermissions!);
+      }
+    }
+
+    setState(() {
+      _applicationInfoList = userInstalledApps;
+      _allPermissions = allPermissions;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // ScreenWidth of different phones
-    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Color(0xFF28292E),
+      backgroundColor: const Color(0xFF28292E),
       appBar: AppBar(
         title: const Text(
           "QUICKSHIELD",
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Color(0xFF28292E),
+        backgroundColor: const Color(0xFF28292E),
         centerTitle: true,
-        // App bar left side logo
         leading: Padding(
           padding: const EdgeInsets.only(left: 12.0),
           child: IconButton(
@@ -33,7 +73,6 @@ class HomeScreen extends StatelessWidget {
             },
           ),
         ),
-        // App bar right side setting button
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 12.0),
@@ -49,14 +88,25 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          isSuspicious
-              ? Image.asset(
-            'assets/images/TapOnScanRed.png',
-            width: screenWidth * 0.6,
-          )
-              : Image.asset(
-            'assets/images/TOSGreen.png',
-            // width: screenWidth * 1.5,
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ScanningScreen(
+                      allPermissions: _allPermissions.toList(),
+                    ),
+                  ),
+                );
+              },
+              child: Image.asset(
+                'assets/images/TOSGreen2.png',
+                fit: BoxFit.cover,
+                height: 600,
+                width: 600,
+              ),
+            ),
           ),
           const SizedBox(
             height: 25,
@@ -68,7 +118,7 @@ class HomeScreen extends StatelessWidget {
               text: const TextSpan(
                 children: [
                   TextSpan(
-                    text: "Tap on Scan to check for hidden ",
+                    text: "Tap on scan to check for hidden ",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -95,49 +145,13 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      "Powered by Gfuturetech Pvt Ltd",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w200,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 30),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ScanningScreen()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: isSuspicious
-                            ? Color(0xFFE9696A)
-                            : Color(0xFF00C756),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        minimumSize: const Size(300, 50),
-                      ),
-                      child: const Text(
-                        'Scan',
-                        style: TextStyle(color: Colors.black, fontSize: 16),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ],
+          const Padding(
+            padding: EdgeInsets.only(top: 25.0),
+            child: Text(
+              "Powered by Quickshield",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w200,
               ),
             ),
           ),
