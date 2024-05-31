@@ -9,7 +9,7 @@ class SubscriptionList extends StatefulWidget {
 }
 
 class _SubscriptionListState extends State<SubscriptionList> {
-  String selectedPlan = "Unlimited plan"; // Default selected plan
+  String selectedPlan = "1 Time Fix"; // Default selected plan
 
   void selectPlan(String plan) {
     setState(() {
@@ -19,31 +19,43 @@ class _SubscriptionListState extends State<SubscriptionList> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: const Color(0xFF28292E),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF28292E),
-        centerTitle: true,
-        leading: Padding(
-        padding: const EdgeInsets.only(left: 0.0),
-        child: IconButton(
-          icon: Image.asset('assets/images/BackButton.png'),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 12.0),
-            child: IconButton(
-              icon: Image.asset('assets/images/SettingIcon.png'),
-              onPressed: () {
-                print("Image clicked");
-              },
-            ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(80.0),
+        child: AppBar(
+          backgroundColor: const Color(0xFF28292E),
+          centerTitle: true,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(width: screenWidth * 0.02,),
+              IconButton(
+                icon: Image.asset('assets/images/BackButton.png',
+                  height: 40,
+                  width: 40,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              SizedBox(width: screenWidth * 0.55,),
+              IconButton(
+                icon: Image.asset('assets/images/SettingIcon.png',
+                  height: 40,
+                  width: 40,
+                ),
+                onPressed: () {
+                  print("Image clicked");
+                },
+              ),
+              SizedBox(width: screenWidth * 0.02,),
+            ],
           ),
-        ],
+          automaticallyImplyLeading: false,
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -69,16 +81,24 @@ class _SubscriptionListState extends State<SubscriptionList> {
               textAlign: TextAlign.center,
             ),
           ),
-          const SizedBox(height: 50,),
+          const SizedBox(height: 20),
+          PricingPlanCard(
+            title: "1 Time Fix",
+            price: "\₹439/ Fix",
+            description: "",
+            color: selectedPlan == "1 Time Fix" ? Color(0xFF00C756) : Colors.grey[850]!,
+            onTap: () => selectPlan("1 Time Fix"),
+          ),
+          const SizedBox(height: 40,),
           Stack(
             clipBehavior: Clip.none,
             children: [
               PricingPlanCard(
-                title: "1 year plan",
+                title: "1 Year Subscription",
                 price: "\₹166/mo",
-                description: "\₹1999 billed for 1 year plan",
-                color: selectedPlan == "Unlimited plan" ? Color(0xFF00C756) : Colors.grey[850]!,
-                onTap: () => selectPlan("Unlimited plan"),
+                description: "\₹1999 billed for 1 year (Unlimited Scans)",
+                color: selectedPlan == "1 year plan" ? Color(0xFF00C756) : Colors.grey[850]!,
+                onTap: () => selectPlan("1 year plan"),
               ),
               Positioned(
                 top: -12, // Adjust as needed
@@ -101,14 +121,6 @@ class _SubscriptionListState extends State<SubscriptionList> {
                 ),
               ),
             ],
-          ),
-          const SizedBox(height: 20),
-          PricingPlanCard(
-            title: "1 Time fix",
-            price: "\₹500/app",
-            description: "",
-            color: selectedPlan == "1 year plan" ? Color(0xFF00C756) : Colors.grey[850]!,
-            onTap: () => selectPlan("1 year plan"),
           ),
           const SizedBox(height: 20),
           // PricingPlanCard(
@@ -148,7 +160,7 @@ class _SubscriptionListState extends State<SubscriptionList> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        minimumSize: const Size(360, 65),
+                        minimumSize: Size(screenWidth * 0.9, 60),
                       ),
                       child: const Text(
                         'Continue',

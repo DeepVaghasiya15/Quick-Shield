@@ -32,7 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
         PMFlag.getProviders,
       },
     );
-    final List<PackageInfo>? infoList = await AndroidPackageManager().getInstalledPackages(flags: flags);
+    final List<PackageInfo>? infoList = await AndroidPackageManager()
+        .getInstalledPackages(flags: flags);
     final List<PackageInfo>? userInstalledApps = infoList?.where((info) {
       return (info.applicationInfo!.flags & FLAG_SYSTEM) == 0;
     }).toList();
@@ -52,107 +53,165 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
+    final double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+
     return Scaffold(
       backgroundColor: const Color(0xFF28292E),
-      appBar: AppBar(
-        title: const Text(
-          "QUICKSHIELD",
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: const Color(0xFF28292E),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 12.0),
-          child: IconButton(
-            icon: SizedBox(
-                width: 26,
-                height: 26,
-                child: Image.asset('assets/images/QuickShieldLogoMain.png')),
-            onPressed: () {
-              print("Leading image clicked");
-            },
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(80.0), // Increased height of the AppBar
+        child: AppBar(
+          backgroundColor: const Color(0xFF28292E),
+          centerTitle: true,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              // SizedBox(width: screenWidth * 0.15,),
+              IconButton(
+                icon: SizedBox(
+                  width: 30, // Increased width
+                  height: 40, // Increased height
+                  child: Image.asset('assets/images/QuickShieldLogoMain.png'),
+                ),
+                onPressed: () {
+                  print("Leading image clicked");
+                },
+              ),
+
+              const Expanded(
+                child: Text(
+                  "QuickShield",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(color: Colors.green, fontSize: 24), // Adjust font size as needed
+                ),
+              ),
+              SizedBox(width: screenWidth * 0.07,),
+              IconButton(
+                icon: Image.asset(
+                  'assets/images/SettingIcon.png',
+                  width: 40, // Adjust width as needed
+                  height: 40, // Adjust height as needed
+                ),
+                onPressed: () {
+                  print("Settings icon clicked");
+                },
+              ),
+              SizedBox(width: screenWidth * 0.02,),
+            ],
           ),
         ),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 12.0),
-            child: IconButton(
-              icon: Image.asset('assets/images/SettingIcon.png'),
-              onPressed: () {
-                print("Image clicked");
-              },
-            ),
-          ),
-        ],
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ScanningScreen(
-                      allPermissions: _allPermissions.toList(),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ScanningScreen(
+                                allPermissions: _allPermissions.toList(),
+                              ),
+                        ),
+                      );
+                    },
+                    child: Image.asset(
+                      'assets/images/TOSGreen3.png',
+                      fit: BoxFit.cover,
+                      height: screenHeight * 0.6,
+                      width: screenWidth * 1,
                     ),
                   ),
-                );
-              },
-              child: Image.asset(
-                'assets/images/TOSGreen2.png',
-                fit: BoxFit.cover,
-                height: 600,
-                width: 600,
-              ),
+                ),
+                SizedBox(
+                  height: screenHeight * 0.01,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: const TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Tap on Scan to detect hidden ",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        TextSpan(
+                          text: "Spying",
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 17,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        TextSpan(
+                          text: " apps on your phone.",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          const SizedBox(
-            height: 25,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 40.0, right: 40),
-            child: RichText(
-              textAlign: TextAlign.center,
-              text: const TextSpan(
-                children: [
-                  TextSpan(
-                    text: "Tap on scan to check for hidden ",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                    ),
+            padding: EdgeInsets.only(bottom: screenHeight * 0.03),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RichText(
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "Secured by ",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w200,
+                        ),
+                      ),
+                    ],
                   ),
-                  TextSpan(
-                    text: "spying",
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 17,
-                      fontWeight: FontWeight.normal,
-                    ),
+                ),
+                Image.asset(
+                  'assets/images/QuickShieldLogoMain.png',
+                  width: 20, // Adjust the size of the logo as needed
+                  height: 20,
+                ),
+                SizedBox(width: 2,),
+                RichText(
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "QuickShield",
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.w200,
+                        ),
+                      ),
+                    ],
                   ),
-                  TextSpan(
-                    text: " apps on your phone.",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(top: 25.0),
-            child: Text(
-              "Powered by Quickshield",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w200,
-              ),
+                ),
+              ],
             ),
           ),
         ],

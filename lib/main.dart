@@ -7,6 +7,8 @@ import 'package:anti_spy/SubscriptionListScreen.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 
+import 'PaymentIntegration.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -25,16 +27,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Quickshield',
       home: const AppCheckWrapper(),
-      // home: MainPage(),
+      // home: PaymentIntegration(),
       routes: {
         '/home': (context) => const HomeScreen(),
         '/scanning': (context) => const ScanningScreen(allPermissions: [],),
         '/scanned': (context) => ScannedScreen(suspiciousApps: [], allPermissions: [],),
         '/subscription': (context) => SubscriptionList(),
       },
-      // home: ScannedScreen(),
-      // home: ScanningScreen(),
-      // home: AppName(),
     );
   }
 }
@@ -51,7 +50,16 @@ class AppCheckWrapper extends StatelessWidget {
       ),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(body: Center(child: CircularProgressIndicator()));
+          return Scaffold(
+            // backgroundColor: const Color(0xFF28292E),
+            backgroundColor: Colors.black,
+            body: Center(
+              child: Image.asset('assets/images/ic_launcher.png',
+              height: 230,
+              width: 230
+              ), // Replace 'launcher_logo.png' with your actual image path
+            ),
+          );
         } else if (snapshot.hasError) {
           return const Scaffold(body: Center(child: Text('Error fetching apps')));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -59,12 +67,10 @@ class AppCheckWrapper extends StatelessWidget {
         } else {
           List<Application> apps = snapshot.data!;
           List<String> suspiciousAppNames = [
-            'Strava'
             'Cocospy',
             'FamiSafe',
             'AirDroid',
             'Sync Service',
-            'Gas Leakage',
             'uMobix Userspace',
             'MMGuardian',
             'FlexiSpy',
@@ -129,6 +135,7 @@ class AppCheckWrapper extends StatelessWidget {
 
           for (var app in apps) {
             appNamesScanning.add(app.appName);
+            print(app.appName);
           }
 
           List<Application> suspiciousApps =

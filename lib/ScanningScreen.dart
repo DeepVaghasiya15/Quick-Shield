@@ -154,6 +154,14 @@ class _ScanningScreenState extends State<ScanningScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
+    final double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Scaffold(
       backgroundColor: const Color(0xFF28292E),
       appBar: AppBar(
@@ -179,15 +187,6 @@ class _ScanningScreenState extends State<ScanningScreen> {
                       width: 280,
                     ),
                   ),
-                  // SizedBox(
-                  //     height: 250,
-                  //     width: 250,
-                  //     child: AnimatedProgressBar(
-                  //       stroke: 10,
-                  //       color: Colors.green,
-                  //       style: PaintingStyle.stroke,
-                  //       percentage: 1,
-                  //     )),
                   if (!_animationCompleted)
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -228,12 +227,26 @@ class _ScanningScreenState extends State<ScanningScreen> {
               ),
             ),
           ),
-          Text(
-            'Scanning... $_currentAppName',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.normal,
+          Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Scanning... ',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                TextSpan(
+                  text: _currentAppName,
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(
@@ -254,7 +267,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                     ),
                   ),
                   TextSpan(
-                    text: "spying",
+                    text: "Spying",
                     style: TextStyle(
                       color: Colors.red,
                       fontSize: 25,
@@ -281,17 +294,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      "Powered by Quickshield",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w200,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 30),
+                    padding: const EdgeInsets.only(bottom: 10),
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.pushReplacement(
@@ -303,13 +306,53 @@ class _ScanningScreenState extends State<ScanningScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        minimumSize: const Size(300, 50),
+                        minimumSize: Size(screenWidth * 0.9, 60),
                       ),
                       child: const Text(
                         'Stop',
-                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        style: TextStyle(color: Colors.white, fontSize: 26),
                         textAlign: TextAlign.center,
                       ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: screenHeight * 0.02),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Secured by ",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w200,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Image.asset(
+                          'assets/images/QuickShieldLogoMain.png',
+                          width: 20, // Adjust the size of the logo as needed
+                          height: 20,
+                        ),
+                        SizedBox(width: 2,),
+                        RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "QuickShield",
+                                style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.w200,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
