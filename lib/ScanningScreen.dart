@@ -144,7 +144,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => NoSpyingApp(),
+          builder: (context) => const NoSpyingApp(),
         ),
       );
     }
@@ -202,13 +202,13 @@ class _ScanningScreenState extends State<ScanningScreen> {
                                 children: [
                                   TextSpan(
                                     text: '$percentage',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 65,
                                       fontWeight: FontWeight.w300,
                                     ),
                                   ),
-                                  TextSpan(
+                                  const TextSpan(
                                     text: '%',
                                     style: TextStyle(
                                       color: Colors.white,
@@ -230,7 +230,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
           Text.rich(
             TextSpan(
               children: [
-                TextSpan(
+                const TextSpan(
                   text: 'Scanning... ',
                   style: TextStyle(
                     color: Colors.white,
@@ -240,7 +240,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                 ),
                 TextSpan(
                   text: _currentAppName,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.green,
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
@@ -299,7 +299,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                       onPressed: () {
                         Navigator.pushReplacement(
                             context, MaterialPageRoute(builder: (context) =>
-                            HomeScreen()));
+                            const HomeScreen()));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red.withOpacity(0.5),

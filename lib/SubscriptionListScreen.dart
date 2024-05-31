@@ -1,6 +1,8 @@
 import 'package:anti_spy/FixedScreen.dart';
 import 'package:flutter/material.dart';
 
+import 'SettingScreen.dart';
+
 class SubscriptionList extends StatefulWidget {
   const SubscriptionList({super.key});
 
@@ -24,7 +26,7 @@ class _SubscriptionListState extends State<SubscriptionList> {
     return Scaffold(
       backgroundColor: const Color(0xFF28292E),
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80.0),
+        preferredSize: const Size.fromHeight(80.0),
         child: AppBar(
           backgroundColor: const Color(0xFF28292E),
           centerTitle: true,
@@ -48,6 +50,7 @@ class _SubscriptionListState extends State<SubscriptionList> {
                   width: 40,
                 ),
                 onPressed: () {
+                  Navigator.push(context,MaterialPageRoute(builder: (context) => SettingScreen()));
                   print("Image clicked");
                 },
               ),
@@ -84,9 +87,9 @@ class _SubscriptionListState extends State<SubscriptionList> {
           const SizedBox(height: 20),
           PricingPlanCard(
             title: "1 Time Fix",
-            price: "\₹439/ Fix",
+            price: "₹439/ Fix",
             description: "",
-            color: selectedPlan == "1 Time Fix" ? Color(0xFF00C756) : Colors.grey[850]!,
+            color: selectedPlan == "1 Time Fix" ? const Color(0xFF00C756) : Colors.grey[850]!,
             onTap: () => selectPlan("1 Time Fix"),
           ),
           const SizedBox(height: 40,),
@@ -95,9 +98,9 @@ class _SubscriptionListState extends State<SubscriptionList> {
             children: [
               PricingPlanCard(
                 title: "1 Year Subscription",
-                price: "\₹166/mo",
-                description: "\₹1999 billed for 1 year (Unlimited Scans)",
-                color: selectedPlan == "1 year plan" ? Color(0xFF00C756) : Colors.grey[850]!,
+                price: "₹166/mo",
+                description: "₹1999 billed for 1 year (Unlimited Scans)",
+                color: selectedPlan == "1 year plan" ? const Color(0xFF00C756) : Colors.grey[850]!,
                 onTap: () => selectPlan("1 year plan"),
               ),
               Positioned(
@@ -108,7 +111,7 @@ class _SubscriptionListState extends State<SubscriptionList> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: Color(0xFF28292E), width: 3),
+                    border: Border.all(color: const Color(0xFF28292E), width: 3),
                   ),
                   child: const Text(
                     "Save 90%",

@@ -3,6 +3,8 @@ import 'package:anti_spy/SubscriptionListScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import 'SettingScreen.dart';
+
 class ScannedScreen extends StatelessWidget {
   final List<String> suspiciousApps;
   final List<String> allPermissions;
@@ -20,9 +22,9 @@ class ScannedScreen extends StatelessWidget {
     }).toList();
 
     return Scaffold(
-      backgroundColor: Color(0xFF28292E),
+      backgroundColor: const Color(0xFF28292E),
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80.0),
+        preferredSize: const Size.fromHeight(80.0),
         child: AppBar(
           backgroundColor: const Color(0xFF28292E),
           centerTitle: true,
@@ -47,7 +49,7 @@ class ScannedScreen extends StatelessWidget {
                   style: TextStyle(color: Colors.green, fontSize: 24), // Adjust font size as needed
                 ),
               ),
-              SizedBox(width: screenWidth * 0.23,),
+              SizedBox(width: screenWidth * 0.37,),
               IconButton(
                 icon: Image.asset(
                   'assets/images/SettingIcon.png',
@@ -55,6 +57,7 @@ class ScannedScreen extends StatelessWidget {
                   height: 40, // Adjust height as needed
                 ),
                 onPressed: () {
+                  Navigator.push(context,MaterialPageRoute(builder: (context) => SettingScreen()));
                   print("Settings icon clicked");
                 },
               ),
@@ -88,17 +91,17 @@ class ScannedScreen extends StatelessWidget {
               },
             ),
           ),
-          Row(
+          const Row(
             children: [
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
                         "Permissions taken by this App",
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -111,17 +114,17 @@ class ScannedScreen extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: PermissionData.map((permission) {
                     return Text(
                       '$permission,',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.red,
                         fontSize: 16,
                       ),
@@ -131,7 +134,7 @@ class ScannedScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: ElevatedButton(
@@ -139,12 +142,12 @@ class ScannedScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SubscriptionList(),
+                    builder: (context) => const SubscriptionList(),
                   ),
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF00C756),
+                backgroundColor: const Color(0xFF00C756),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -180,12 +183,12 @@ class ScannedScreen extends StatelessWidget {
                   width: 20, // Adjust the size of the logo as needed
                   height: 20,
                 ),
-                SizedBox(width: 2,),
+                const SizedBox(width: 2,),
                 RichText(
                   text: const TextSpan(
                     children: [
                       TextSpan(
-                        text: "Quickshield",
+                        text: "QuickShield",
                         style: TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.w200,

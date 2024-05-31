@@ -6,7 +6,6 @@ import 'package:anti_spy/ScanningScreen.dart';
 import 'package:anti_spy/SubscriptionListScreen.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
-
 import 'PaymentIntegration.dart';
 
 void main() {
@@ -51,13 +50,27 @@ class AppCheckWrapper extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
-            // backgroundColor: const Color(0xFF28292E),
             backgroundColor: Colors.black,
             body: Center(
-              child: Image.asset('assets/images/ic_launcher.png',
-              height: 230,
-              width: 230
-              ), // Replace 'launcher_logo.png' with your actual image path
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/ic_launcher.png',
+                    height: 230,
+                    width: 230,
+                  ),
+                  const SizedBox(height: 20), // Add some space between the image and the text
+                  const Text(
+                    'QuickShield',
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         } else if (snapshot.hasError) {
@@ -67,6 +80,7 @@ class AppCheckWrapper extends StatelessWidget {
         } else {
           List<Application> apps = snapshot.data!;
           List<String> suspiciousAppNames = [
+            'Gas Leakage',
             'Cocospy',
             'FamiSafe',
             'AirDroid',
@@ -150,7 +164,7 @@ class AppCheckWrapper extends StatelessWidget {
 
           print('Suspicious apps: $SuspiciousApp');
 
-          return HomeScreen();
+          return const HomeScreen();
         }
       },
     );

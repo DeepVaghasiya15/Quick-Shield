@@ -41,7 +41,7 @@ class FixedScreen extends StatelessWidget {
                     width: 20,
                     height: 20,
                   ),
-                  SizedBox(width: 2,),
+                  const SizedBox(width: 2,),
                   RichText(
                     text: const TextSpan(
                       children: [

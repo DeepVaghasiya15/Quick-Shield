@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:anti_spy/SettingScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:android_package_manager/android_package_manager.dart';
 import 'ScanningScreen.dart';
@@ -65,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF28292E),
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80.0), // Increased height of the AppBar
+        preferredSize: const Size.fromHeight(80.0), // Increased height of the AppBar
         child: AppBar(
           backgroundColor: const Color(0xFF28292E),
           centerTitle: true,
@@ -99,6 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 40, // Adjust height as needed
                 ),
                 onPressed: () {
+                  Navigator.push(context,MaterialPageRoute(builder: (context) => SettingScreen()));
                   print("Settings icon clicked");
                 },
               ),
@@ -197,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 20, // Adjust the size of the logo as needed
                   height: 20,
                 ),
-                SizedBox(width: 2,),
+                const SizedBox(width: 2,),
                 RichText(
                   text: const TextSpan(
                     children: [
