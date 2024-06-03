@@ -24,16 +24,18 @@ class _SubscriptionListState extends State<SubscriptionList> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: const Color(0xFF28292E),
+      // backgroundColor: const Color(0xFF28292E),
+      backgroundColor: Colors.black,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
         child: AppBar(
-          backgroundColor: const Color(0xFF28292E),
+          // backgroundColor: const Color(0xFF28292E),
+          backgroundColor: Colors.black,
           centerTitle: true,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              SizedBox(width: screenWidth * 0.02,),
+              SizedBox(width: screenWidth * 0.00,),
               IconButton(
                 icon: Image.asset('assets/images/BackButton.png',
                   height: 40,
@@ -43,7 +45,7 @@ class _SubscriptionListState extends State<SubscriptionList> {
                   Navigator.pop(context);
                 },
               ),
-              SizedBox(width: screenWidth * 0.55,),
+              SizedBox(width: screenWidth * 0.58,),
               IconButton(
                 icon: Image.asset('assets/images/SettingIcon.png',
                   height: 40,

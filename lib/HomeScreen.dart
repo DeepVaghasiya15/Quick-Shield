@@ -64,11 +64,13 @@ class _HomeScreenState extends State<HomeScreen> {
         .width;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF28292E),
+      // backgroundColor: const Color(0xFF28292E),
+      backgroundColor: Colors.black,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80.0), // Increased height of the AppBar
         child: AppBar(
-          backgroundColor: const Color(0xFF28292E),
+          // backgroundColor: const Color(0xFF28292E),
+          backgroundColor: Colors.black,
           centerTitle: true,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,

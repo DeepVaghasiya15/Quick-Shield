@@ -163,9 +163,11 @@ class _ScanningScreenState extends State<ScanningScreen> {
         .size
         .width;
     return Scaffold(
-      backgroundColor: const Color(0xFF28292E),
+      // backgroundColor: const Color(0xFF28292E),
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF28292E),
+        // backgroundColor: const Color(0xFF28292E),
+        backgroundColor: Colors.black,
         title: const Text('Scanning', style: TextStyle(fontFamily: 'Manrope',color: Colors.white)),
         centerTitle: true,
       ),
@@ -182,9 +184,9 @@ class _ScanningScreenState extends State<ScanningScreen> {
                     opacity: _animationCompleted ? 0.0 : 1.0,
                     duration: const Duration(milliseconds: 500),
                     child: Image.asset(
-                      'assets/images/CircularLoader.gif',
-                      height: 280,
-                      width: 280,
+                      'assets/images/CircularLoaderGreen.gif',
+                      height: 300,
+                      width: 300,
                     ),
                   ),
                   if (!_animationCompleted)
@@ -309,7 +311,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                             const HomeScreen()));
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red.withOpacity(0.5),
+                        backgroundColor: Colors.red,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),

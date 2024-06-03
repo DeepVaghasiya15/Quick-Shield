@@ -22,11 +22,13 @@ class ScannedScreen extends StatelessWidget {
     }).toList();
 
     return Scaffold(
-      backgroundColor: const Color(0xFF28292E),
+      // backgroundColor: const Color(0xFF28292E),
+      backgroundColor: Colors.black,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
         child: AppBar(
-          backgroundColor: const Color(0xFF28292E),
+          // backgroundColor: const Color(0xFF28292E),
+          backgroundColor: Colors.black,
           centerTitle: true,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
