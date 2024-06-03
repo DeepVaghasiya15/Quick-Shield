@@ -72,7 +72,7 @@ class _SubscriptionListState extends State<SubscriptionList> {
           const Text(
             "Pricing Plan",
             style: TextStyle(
-                color: Colors.white, fontSize: 40, fontWeight: FontWeight.w600),
+                fontFamily: 'Manrope',color: Colors.white, fontSize: 40, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 20,),
           const Padding(
@@ -80,7 +80,7 @@ class _SubscriptionListState extends State<SubscriptionList> {
             child: Text(
               "Choose a subscription plan to unlock all the functionality of the application.",
               style: TextStyle(
-                  color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                  fontFamily: 'Manrope',color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
               textAlign: TextAlign.center,
             ),
           ),
@@ -116,6 +116,7 @@ class _SubscriptionListState extends State<SubscriptionList> {
                   child: const Text(
                     "Save 90%",
                     style: TextStyle(
+                      fontFamily: 'Manrope',
                       color: Color(0xFF00C756),
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
@@ -167,7 +168,7 @@ class _SubscriptionListState extends State<SubscriptionList> {
                       ),
                       child: const Text(
                         'Continue',
-                        style: TextStyle(color: Colors.white, fontSize: 24),
+                        style: TextStyle(fontFamily: 'Manrope',color: Colors.white, fontSize: 24),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -219,6 +220,7 @@ class PricingPlanCard extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
+                    fontFamily: 'Manrope',
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -230,6 +232,7 @@ class PricingPlanCard extends StatelessWidget {
                       TextSpan(
                         text: price.split('/')[0], // Extract the price part before "/"
                         style: const TextStyle(
+                          fontFamily: 'Manrope',
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -238,6 +241,7 @@ class PricingPlanCard extends StatelessWidget {
                       TextSpan(
                         text: '/' + price.split('/')[1], // Extract the "/mo" part
                         style: const TextStyle(
+                          fontFamily: 'Manrope',
                           color: Colors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -253,6 +257,7 @@ class PricingPlanCard extends StatelessWidget {
               Text(
                 description,
                 style: const TextStyle(
+                  fontFamily: 'Manrope',
                   color: Colors.white70,
                   fontSize: 14,
                 ),

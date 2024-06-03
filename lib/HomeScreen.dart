@@ -89,18 +89,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text(
                   "QuickShield",
                   textAlign: TextAlign.left,
-                  style: TextStyle(color: Colors.green, fontSize: 24), // Adjust font size as needed
+                  style: TextStyle(fontFamily: 'Manrope',color: Colors.green, fontSize: 24), // Adjust font size as needed
                 ),
               ),
               SizedBox(width: screenWidth * 0.07,),
               IconButton(
                 icon: Image.asset(
                   'assets/images/SettingIcon.png',
-                  width: 40, // Adjust width as needed
-                  height: 40, // Adjust height as needed
+                  width: 40,
+                  height: 40,
                 ),
                 onPressed: () {
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => SettingScreen()));
+                  Navigator.push(context,MaterialPageRoute(builder: (context) => const SettingScreen()));
                   print("Settings icon clicked");
                 },
               ),
@@ -148,6 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         TextSpan(
                           text: "Tap on Scan to detect hidden ",
                           style: TextStyle(
+                            fontFamily: 'Manrope',
                             color: Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.normal,
@@ -156,6 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         TextSpan(
                           text: "Spying",
                           style: TextStyle(
+                            fontFamily: 'Manrope',
                             color: Colors.red,
                             fontSize: 17,
                             fontWeight: FontWeight.normal,
@@ -164,6 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         TextSpan(
                           text: " apps on your phone.",
                           style: TextStyle(
+                            fontFamily: 'Manrope',
                             color: Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.normal,
@@ -187,6 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       TextSpan(
                         text: "Secured by ",
                         style: TextStyle(
+                          fontFamily: 'Manrope',
                           color: Colors.white,
                           fontWeight: FontWeight.w200,
                         ),
@@ -206,6 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       TextSpan(
                         text: "QuickShield",
                         style: TextStyle(
+                          fontFamily: 'Manrope',
                           color: Colors.green,
                           fontWeight: FontWeight.w200,
                         ),

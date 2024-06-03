@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'PaymentIntegration.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -64,6 +65,7 @@ class AppCheckWrapper extends StatelessWidget {
                   const Text(
                     'QuickShield',
                     style: TextStyle(
+                        fontFamily: 'Manrope',
                       color: Colors.green,
                       fontSize: 24,
                       fontWeight: FontWeight.bold

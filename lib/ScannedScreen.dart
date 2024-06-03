@@ -31,7 +31,7 @@ class ScannedScreen extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(width: screenWidth * 0.01,),
+              // SizedBox(width: screenWidth * 0.01,),
               IconButton(
                 icon: SizedBox(
                   width: 30, // Increased width
@@ -45,11 +45,11 @@ class ScannedScreen extends StatelessWidget {
               const Expanded(
                 child: Text(
                   "QuickShield",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.green, fontSize: 24), // Adjust font size as needed
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontFamily: 'Manrope',color: Colors.green, fontSize: 24), // Adjust font size as needed
                 ),
               ),
-              SizedBox(width: screenWidth * 0.37,),
+              SizedBox(width: screenWidth * 0.07,),
               IconButton(
                 icon: Image.asset(
                   'assets/images/SettingIcon.png',
@@ -102,6 +102,7 @@ class ScannedScreen extends StatelessWidget {
                       child: Text(
                         "Permissions taken by this App",
                         style: TextStyle(
+                          fontFamily: 'Manrope',
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -125,6 +126,7 @@ class ScannedScreen extends StatelessWidget {
                     return Text(
                       '$permission,',
                       style: const TextStyle(
+                        fontFamily: 'Manrope',
                         color: Colors.red,
                         fontSize: 16,
                       ),
@@ -155,7 +157,7 @@ class ScannedScreen extends StatelessWidget {
               ),
               child: const Text(
                 'Fix Now',
-                style: TextStyle(color: Colors.white, fontSize: 24),
+                style: TextStyle(fontFamily: 'Manrope',color: Colors.white, fontSize: 24),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -171,6 +173,7 @@ class ScannedScreen extends StatelessWidget {
                       TextSpan(
                         text: "Secured by ",
                         style: TextStyle(
+                          fontFamily: 'Manrope',
                           color: Colors.white,
                           fontWeight: FontWeight.w200,
                         ),
@@ -190,6 +193,7 @@ class ScannedScreen extends StatelessWidget {
                       TextSpan(
                         text: "QuickShield",
                         style: TextStyle(
+                          fontFamily: 'Manrope',
                           color: Colors.green,
                           fontWeight: FontWeight.w200,
                         ),
@@ -229,11 +233,12 @@ class MyCustomCell extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.warning_rounded, size: 40.0, color: Colors.black),
-                SizedBox(width: 10.0),
+                const Icon(Icons.warning_rounded, size: 40.0, color: Colors.black),
+                const SizedBox(width: 10.0),
                 Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
+                    fontFamily: 'Manrope',
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.orange,
@@ -241,10 +246,10 @@ class MyCustomCell extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             Text(
               content,
-              style: TextStyle(fontSize: 14.0, color: Colors.black),
+              style: const TextStyle(fontFamily: 'Manrope',fontSize: 14.0, color: Colors.black),
             ),
           ],
         ),

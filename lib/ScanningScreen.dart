@@ -166,7 +166,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
       backgroundColor: const Color(0xFF28292E),
       appBar: AppBar(
         backgroundColor: const Color(0xFF28292E),
-        title: const Text('Scanning', style: TextStyle(color: Colors.white)),
+        title: const Text('Scanning', style: TextStyle(fontFamily: 'Manrope',color: Colors.white)),
         centerTitle: true,
       ),
       body: Column(
@@ -203,6 +203,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                                   TextSpan(
                                     text: '$percentage',
                                     style: const TextStyle(
+                                      fontFamily: 'Manrope',
                                       color: Colors.white,
                                       fontSize: 65,
                                       fontWeight: FontWeight.w300,
@@ -211,6 +212,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                                   const TextSpan(
                                     text: '%',
                                     style: TextStyle(
+                                      fontFamily: 'Manrope',
                                       color: Colors.white,
                                       fontSize: 18,
                                       fontWeight: FontWeight.normal,
@@ -233,6 +235,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                 const TextSpan(
                   text: 'Scanning... ',
                   style: TextStyle(
+                    fontFamily: 'Manrope',
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
@@ -241,6 +244,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                 TextSpan(
                   text: _currentAppName,
                   style: const TextStyle(
+                    fontFamily: 'Manrope',
                     color: Colors.green,
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
@@ -261,6 +265,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                   TextSpan(
                     text: "Scanning the ",
                     style: TextStyle(
+                      fontFamily: 'Manrope',
                       color: Colors.white,
                       fontSize: 24,
                       fontWeight: FontWeight.normal,
@@ -269,6 +274,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                   TextSpan(
                     text: "Spying",
                     style: TextStyle(
+                      fontFamily: 'Manrope',
                       color: Colors.red,
                       fontSize: 25,
                       fontWeight: FontWeight.normal,
@@ -277,6 +283,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                   TextSpan(
                     text: " apps on your phone.",
                     style: TextStyle(
+                      fontFamily: 'Manrope',
                       color: Colors.white,
                       fontSize: 24,
                       fontWeight: FontWeight.normal,
@@ -310,7 +317,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                       ),
                       child: const Text(
                         'Stop',
-                        style: TextStyle(color: Colors.white, fontSize: 26),
+                        style: TextStyle(fontFamily: 'Manrope',color: Colors.white, fontSize: 26),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -326,6 +333,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                               TextSpan(
                                 text: "Secured by ",
                                 style: TextStyle(
+                                  fontFamily: 'Manrope',
                                   color: Colors.white,
                                   fontWeight: FontWeight.w200,
                                 ),
@@ -345,6 +353,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
                               TextSpan(
                                 text: "QuickShield",
                                 style: TextStyle(
+                                  fontFamily: 'Manrope',
                                   color: Colors.green,
                                   fontWeight: FontWeight.w200,
                                 ),

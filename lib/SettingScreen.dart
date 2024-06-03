@@ -35,7 +35,7 @@ class SettingScreen extends StatelessWidget {
               const Text(
                 "QuickShield",
                 textAlign: TextAlign.left,
-                style: TextStyle(color: Colors.green, fontSize: 24),
+                style: TextStyle(fontFamily: 'Manrope',color: Colors.green, fontSize: 24),
               ),
               const Spacer(),
             ],
@@ -49,11 +49,11 @@ class SettingScreen extends StatelessWidget {
             child: ListTile(
               title: const Text(
                 'Subscription',
-                style: TextStyle(color: Colors.white,fontSize: 21),
+                style: TextStyle(fontFamily: 'Manrope',color: Colors.white,fontSize: 21),
               ),
               subtitle: const Text(
                 'No Plan',
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(fontFamily: 'Manrope',color: Colors.white70),
               ),
               onTap: () {
                 // Action when tapped
@@ -67,11 +67,11 @@ class SettingScreen extends StatelessWidget {
             child: ListTile(
               title: const Text(
                 'QuickShield',
-                style: TextStyle(color: Colors.white,fontSize: 21),
+                style: TextStyle(fontFamily: 'Manrope',color: Colors.white,fontSize: 21),
               ),
               subtitle: const Text(
                 'version 1.0.0',
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(fontFamily: 'Manrope',color: Colors.white70),
               ),
               onTap: () {
                 // Action when tapped

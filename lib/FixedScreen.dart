@@ -29,6 +29,7 @@ class FixedScreen extends StatelessWidget {
                         TextSpan(
                           text: "Secured by ",
                           style: TextStyle(
+                            fontFamily: 'Manrope',
                             color: Colors.white,
                             fontWeight: FontWeight.w200,
                           ),
@@ -48,6 +49,7 @@ class FixedScreen extends StatelessWidget {
                         TextSpan(
                           text: "Quickshield",
                           style: TextStyle(
+                            fontFamily: 'Manrope',
                             color: Colors.white,
                             fontWeight: FontWeight.w200,
                           ),
