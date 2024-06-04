@@ -295,7 +295,7 @@ class _ScanningScreenState extends State<ScanningScreen> {
               ),
             ),
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 20),
           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,

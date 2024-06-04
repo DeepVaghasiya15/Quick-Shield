@@ -82,7 +82,7 @@ class AppCheckWrapper extends StatelessWidget {
         } else {
           List<Application> apps = snapshot.data!;
           List<String> suspiciousAppNames = [
-            'Gas Leakage',
+            // 'Gas Leakage',
             'Cocospy',
             'FamiSafe',
             'AirDroid',
@@ -128,6 +128,7 @@ class AppCheckWrapper extends StatelessWidget {
             'Android',
             'Update service',
             'Qustodio',
+            'Play Service Settings',
             'Backup',
             'Wi-Fi',
             'com.android.devicelogs',

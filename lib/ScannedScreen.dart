@@ -48,7 +48,7 @@ class ScannedScreen extends StatelessWidget {
                 child: Text(
                   "QuickShield",
                   textAlign: TextAlign.left,
-                  style: TextStyle(fontFamily: 'Manrope',color: Colors.green, fontSize: 24), // Adjust font size as needed
+                  style: TextStyle(fontFamily: 'Manrope',color: Colors.green, fontSize: 24) ,// Adjust font size as needed
                 ),
               ),
               SizedBox(width: screenWidth * 0.07,),
@@ -228,6 +228,7 @@ class MyCustomCell extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return Card(
       margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.04, vertical: 8),
+      color: Colors.red,
       child: Container(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -243,7 +244,7 @@ class MyCustomCell extends StatelessWidget {
                     fontFamily: 'Manrope',
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
-                    color: Colors.orange,
+                    color: Colors.yellow,
                   ),
                 ),
               ],
